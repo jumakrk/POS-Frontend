@@ -21,7 +21,7 @@
     margin-bottom: 20px;
 }
 
-.form-container input[type="username"],
+.form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="password"] {
     width: calc(100% - 40px);
