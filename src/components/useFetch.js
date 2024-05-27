@@ -13,7 +13,7 @@ const useFetch = () => {
 
             if (!response.ok) {
                 // If response is not ok, throw an error
-                // throw new Error(responseData.message || 'Something went wrong');
+                throw new Error(responseData.message || 'Something went wrong');
             }
 
             // If response is ok, set data and clear error

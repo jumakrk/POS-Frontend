@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './RegisterForm.css'; // Import register form styling
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import useFetch from './useFetch'; // Import the useFetch hook
 
 const RegisterForm = ({ switchToLogin }) => {
@@ -78,6 +78,7 @@ const RegisterForm = ({ switchToLogin }) => {
             <div className="switch">
                 <p>Already have an account? <Link to="/login">Login</Link></p>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

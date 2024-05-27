@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LoginForm.css'; // Import login form styling
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import useFetch from './useFetch'; // Import the useFetch hook
 
 const LoginForm = ({ switchToRegister }) => {
@@ -9,13 +11,8 @@ const LoginForm = ({ switchToRegister }) => {
         password: ''
     });
 
-    const { /*data,*/ error, loading } = useFetch('http://localhost:4000/api/user/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-    });
+    const { data, error, loading, fetchData } = useFetch();
+    const history = useHistory();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -24,8 +21,41 @@ const LoginForm = ({ switchToRegister }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // No need to handle submission here, it's done by useFetch hook
+        fetchData('http://localhost:4000/api/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
     };
+
+    useEffect(() => {
+        if (data) {
+            toast.success('Login successful', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            history.push('/dashboard'); // Redirect to dashboard upon successful login
+        }
+
+        if (error) {
+            toast.error(error.message || 'Login failed. Please try again.', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }, [data, error, history]);
 
     return (
         <div className="form-container">
@@ -49,10 +79,10 @@ const LoginForm = ({ switchToRegister }) => {
                 />
                 <button type="submit" disabled={loading}>Login</button>
             </form>
-            {error && <div>Error: {error.message}</div>}
             <div className="switch">
                 <p>Don't have an account? <Link to="/register">Register</Link></p>
             </div>
+            <ToastContainer />
         </div>
     );
 };

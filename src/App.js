@@ -4,8 +4,7 @@ import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import Dashboard from './components/Dashboard';
-// import SideNavigation from './components/SideNavigation';
+import Dashboard from './components/Dashboard';
 
 function App() {
   return (
@@ -22,6 +21,7 @@ function App() {
                 </Switch>
             </div>
         </Router>
+        <Dashboard/>
         <ToastContainer/>
     </div>
   );
