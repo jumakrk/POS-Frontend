@@ -4,7 +4,7 @@ const Home = () => {
     return (
         <div>
             <h1>Home</h1>
-            <p>Welcome to the POS System.</p>
+            <p>Welcome to Swift Sell POS.</p>
         </div>
     );
 };

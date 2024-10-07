@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './RegisterForm.css'; // Import register form styling
-import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import useFetch from './useFetch'; // Import the useFetch hook
 
 const RegisterForm = ({ switchToLogin }) => {
@@ -12,6 +12,7 @@ const RegisterForm = ({ switchToLogin }) => {
     });
 
     const { error, loading, fetchData } = useFetch();
+    const history = useHistory(); // Use useHistory to navigate
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -31,15 +32,28 @@ const RegisterForm = ({ switchToLogin }) => {
             });
 
             // If no error occurred during registration, display success toast
-            toast.success('User registered successfully', {
-                autoClose: 3000, // 3-second timer
-                position: 'top-right' // Position of the toast
+            toast.success('User Registered successfully', {
+                position: "top-right",
+                autoClose: 500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                onClose: () => {
+                    history.push('/login'); // Redirect to login page after the toast closes
+                }
             });
         } catch (error) {
             // If an error occurred during registration, display error toast
-            toast.error(error.message || 'Error registering user', {
-                autoClose: 3000, // 3-second timer
-                position: 'top-right' // Position of the toast
+            toast.error(error.message || 'User Registration failed.', {
+                position: 'top-right',
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
             });
         }
     };
@@ -78,7 +92,6 @@ const RegisterForm = ({ switchToLogin }) => {
             <div className="switch">
                 <p>Already have an account? <Link to="/login">Login</Link></p>
             </div>
-            <ToastContainer/>
         </div>
     );
 };

@@ -5,6 +5,7 @@ import RegisterForm from './components/RegisterForm';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './components/Dashboard';
+import Logout from './components/Logout';
 
 function App() {
   return (
@@ -12,16 +13,22 @@ function App() {
               <Router>
             <div>
                 <Switch>
+                    <Route path="/" exact component={LoginForm} /> {/* Opens the login page as th first page */}
                     <Route path="/login">
                         <LoginForm/>
                     </Route>
                     <Route path="/register">
                         <RegisterForm />
                     </Route>
+                    <Route path="/dashboard">
+                        <Dashboard />
+                    </Route>
+                    <Route path="/logout">
+                        <Logout/>
+                    </Route>
                 </Switch>
             </div>
         </Router>
-        <Dashboard/>
         <ToastContainer/>
     </div>
   );
